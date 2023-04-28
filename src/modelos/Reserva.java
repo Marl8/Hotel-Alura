@@ -1,20 +1,29 @@
 package modelos;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Reserva {
 
-	private Long id;
-	private LocalDate fechaEntrada;
-	private LocalDate fechaSalida;
-	private double valor;
+	private int id;
+	private Date fechaEntrada;
+	private Date fechaSalida;
+	private String valor;
 	private String formaPago;
 	
 	public Reserva() {
 		super();
 	}
 
-	public Reserva(Long id, LocalDate fechaEntrada, LocalDate fechaSalida, double valor, String formaPago) {
+	public Reserva(Date fechaEntrada, Date fechaSalida, String string, String formaPago) {
+
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.valor = string;
+		this.formaPago = formaPago;
+	}
+	
+
+	public Reserva(int id, Date fechaEntrada, Date fechaSalida, String valor, String formaPago) {
 		super();
 		this.id = id;
 		this.fechaEntrada = fechaEntrada;
@@ -23,35 +32,35 @@ public class Reserva {
 		this.formaPago = formaPago;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public LocalDate getFechaEntrada() {
+	public Date getFechaEntrada() {
 		return fechaEntrada;
 	}
 
-	public void setFechaEntrada(LocalDate fechaEntrada) {
+	public void setFechaEntrada(Date fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
 
-	public LocalDate getFechaSalida() {
+	public Date getFechaSalida() {
 		return fechaSalida;
 	}
 
-	public void setFechaSalida(LocalDate fechaSalida) {
+	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public double getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 

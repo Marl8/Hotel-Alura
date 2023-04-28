@@ -13,13 +13,35 @@ public class Huesped {
 	private int idReservas;
 	
 	public Huesped() {
-		super();
-	}
 
-	public Huesped(int id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
-			String telefono, int idReservas) {
+	}
+	
+	public Huesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+	}	
+
+	public Huesped(int id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono,
+			int idReservas) {
 		super();
 		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+		this.idReservas = idReservas;
+	}
+	
+	
+
+	public Huesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono,
+			int idReservas) {
+		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
@@ -82,6 +104,13 @@ public class Huesped {
 
 	public void setIdReservas(int idReservas) {
 		this.idReservas = idReservas;
+	}
+
+	@Override
+	public String toString() {
+		return "Huesped [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
+				+ fechaNacimiento + ", nacionalidad=" + nacionalidad + ", telefono=" + telefono + ", idReservas="
+				+ idReservas + "]";
 	}
 	
 	

@@ -7,6 +7,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
+
+import controller.HuespedesController;
+import modelos.Huesped;
+import modelos.Reserva;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
@@ -39,6 +44,8 @@ public class RegistroHuesped extends JFrame {
 	private JLabel labelAtras;
 	int xMouse, yMouse;
 
+	private HuespedesController controller;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +53,7 @@ public class RegistroHuesped extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistroHuesped frame = new RegistroHuesped();
+					RegistroHuesped frame = new RegistroHuesped(0);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +65,9 @@ public class RegistroHuesped extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistroHuesped() {
+	public RegistroHuesped(int idReserva) {
+		
+		this.controller = new HuespedesController();
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -210,6 +219,8 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		String id = String.valueOf(idReserva);
+		txtNreserva.setText(id); 
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -261,6 +272,12 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		JLabel labelGuardar = new JLabel("GUARDAR");
+		labelGuardar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				guardarHuesped();
+			}
+		});
 		labelGuardar.setHorizontalAlignment(SwingConstants.CENTER);
 		labelGuardar.setForeground(Color.WHITE);
 		labelGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
@@ -314,6 +331,31 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setForeground(SystemColor.black);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 	}
+	
+	//Funcionalidad boton guardar
+		public void guardarHuesped () {
+			
+			//Casteo los datos para poder darles entrada
+			String fechaNac = ((JTextField)txtFechaN.getDateEditor().getUiComponent()).getText();
+	
+		
+			/*Hay que convertirlos de DATE de java.util a un DATE de java.sql
+			(getDataEditor los convierte a DATE de java.util) para guardarlo en la base de datos debe ser
+			del tipo DATE de java.sql*/
+		
+			Huesped nuevoHuesped = new Huesped(txtNombre.getText(), txtApellido.getText(), java.sql.Date.valueOf(fechaNac),
+				txtNacionalidad.getSelectedItem().toString(), txtTelefono.getText(), Integer.parseInt(txtNreserva.getText()));
+
+			controller.guardar(nuevoHuesped);
+			
+			System.out.println(nuevoHuesped.getIdReservas());
+			
+			JOptionPane.showMessageDialog(contentPane, "Reserva guardada con éxito, id: " + nuevoHuesped.getId());
+			
+			RegistroHuesped huesped = new RegistroHuesped(nuevoHuesped.getId());
+			huesped.setVisible(true);
+			dispose();
+		}
 	
 	
 	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	

@@ -14,7 +14,7 @@ public class ConnectionFactory {
 	public ConnectionFactory () {
 		
 		ComboPooledDataSource pooedDataSource = new ComboPooledDataSource();
-		pooedDataSource.setJdbcUrl("jdbc:mysql://localhost/control_de_stock?useTimeZone=True&serverTimeZone=UTC");
+		pooedDataSource.setJdbcUrl("jdbc:mysql://localhost/hotel_alura?useTimeZone=True&serverTimeZone=UTC");
 		pooedDataSource.setUser("root");
 		pooedDataSource.setPassword("4842");
 		
