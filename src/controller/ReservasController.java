@@ -21,8 +21,10 @@ public class ReservasController {
     	reservaDao.guardar(reserva);
     }
 
+
 	public int modificar(int id, Date fechaEntrada, Date fechaSalida, String valor, String formaPago) {
         return reservaDao.modificar(id, fechaEntrada, fechaSalida, valor, formaPago);
+
     }
 
     public int eliminar(Integer id) {
@@ -35,6 +37,6 @@ public class ReservasController {
     
     public List<Reserva> busquedaPorId(int id) {
     	
-    	return this.reservaDao.busquedaPorId(id);
+        return this.reservaDao.busquedaPorId(id);
     }
 }

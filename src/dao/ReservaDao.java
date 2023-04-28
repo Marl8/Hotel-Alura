@@ -51,25 +51,28 @@ private Connection con;
         }        
 	}   
 	
-	public int modificar (int id, Date fechaEntrada, Date fechaSalida, String valor, String formaPago) {
+
+	public int modificar (int id, Date fechaEntrada, Date fechaSalida, String valor, 
+			String formaPago) {
 
         try {
             final PreparedStatement statement = con.prepareStatement(
                     "UPDATE RESERVAS SET "
-            		+ " id = ?,"
+                    + " id = ?,"
                     + " fecha_entrada = ?, "
                     + " fecha_salida = ?,"
                     + " valor = ?,"
-                    + " forma_pago = ?"
-            );
+                    + " forma_pago = ?");
 
             try (statement) {
+
 
             	statement.setInt(1, id);
                 statement.setDate(2, fechaEntrada);
                 statement.setDate(3, fechaSalida);
                 statement.setString(4, valor);
                 statement.setString(5, formaPago);
+                
 
                 statement.execute();
 

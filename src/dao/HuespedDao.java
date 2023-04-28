@@ -28,6 +28,8 @@ public class HuespedDao {
                         "INSERT INTO HUESPEDES "
                         + "(nombre, apellido, fecha_nac, nacionalidad, telefono, id_reserva)"
                         + " VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+
     
             try (statement) {
                 statement.setString(1, huesped.getNombre());
@@ -37,6 +39,7 @@ public class HuespedDao {
                 statement.setString(5, huesped.getTelefono());
                 statement.setInt(6, huesped.getIdReservas());
                 
+
                 statement.execute();
     
                 final ResultSet resultSet = statement.getGeneratedKeys();
@@ -53,7 +56,7 @@ public class HuespedDao {
             throw new RuntimeException(e);
         }
     }
-	
+
 	public int modificar(int id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
 			String telefono, int idReserva) {
         try {
@@ -75,6 +78,7 @@ public class HuespedDao {
                 statement.setString(5, nacionalidad);
                 statement.setString(6, telefono);
                 statement.setInt(7, idReserva);
+
                 statement.execute();
 
                 int updateCount = statement.getUpdateCount();
@@ -120,6 +124,7 @@ public class HuespedDao {
 
 	                    while (resultSet.next()) {
 	                        resultado.add(new Huesped(
+	                        		
 	                        		resultSet.getInt("id"),
 	                                resultSet.getString("nombre"),
 	                                resultSet.getString("apellido"),
@@ -156,6 +161,7 @@ public class HuespedDao {
 
 		                    while (resultSet.next()) {
 		                        resultado.add(new Huesped(
+
 		                        		resultSet.getInt("id"),
 		                        		resultSet.getString("nombre"),
 		                                resultSet.getString("apellido"),

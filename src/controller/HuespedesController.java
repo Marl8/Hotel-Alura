@@ -21,11 +21,13 @@ private HuespedDao huespedDao;
     	huespedDao.guardar(huesped);
     }
 
+
 	public int modificar(int id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad, 
 			String telefono, int id_reserva) {
+		
         return huespedDao.modificar(id, nombre, apellido, fechaNacimiento , nacionalidad, telefono, id_reserva);
-    }
-
+	}
+	
     public int eliminar(Integer id) {
         return huespedDao.eliminar(id);
     }
@@ -34,8 +36,9 @@ private HuespedDao huespedDao;
         return huespedDao.listar();
     }
     
+
     public List<Huesped> busquedaPorId(int id) {
     	
     	return huespedDao.busquedaPorId(id);
-    }
+    }	
 }

@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+
 import controller.HuespedesController;
 import controller.ReservasController;
 import modelos.Huesped;
@@ -14,12 +16,20 @@ import modelos.Reserva;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.management.loading.PrivateClassLoader;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Optional;
+import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -29,7 +39,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @SuppressWarnings("serial")
 public class Busqueda extends JFrame {
@@ -45,6 +59,7 @@ public class Busqueda extends JFrame {
 
 	private ReservasController reservasController;
 	private HuespedesController huespedesController;
+	private ReservasView reservasView;
 	String reservas;
 	String huespedes;
 	/**
@@ -67,6 +82,8 @@ public class Busqueda extends JFrame {
 	 * Create the frame.
 	 */
 	public Busqueda() {
+		
+		this.reservasView = new ReservasView();
 		this.reservasController = new ReservasController();
 		this.huespedesController = new HuespedesController();
 		
@@ -468,18 +485,21 @@ public class Busqueda extends JFrame {
 	      }
 		
 	    private void editarHuesped() {
+	        if (tbHuespedes.getSelectedRowCount() == 0 || tbHuespedes.getSelectedColumnCount() == 0) {
+	            JOptionPane.showMessageDialog(this, "Por favor, selecciona un huésped!", "WARNING", JOptionPane.WARNING_MESSAGE);
+	        } else {
 
 	            if (JOptionPane.showConfirmDialog(this, "¿Deseas modificar la información del huésped?", "QUESTION", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 	            	
 	            	int id = (int) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0);
-
+	          	
 	                String nombre = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 1).toString().trim();
 	                String apellido = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 2).toString().trim();
 
 	                Date fechaNacimiento = Date.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 3).toString());
 
 	                String nacionalidad = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 4).toString().trim();
-	                String telefono = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(),5).toString().trim();
+	                String telefono = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 5).toString().trim();
 	                int idReserva = (int) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 6);
 
 	                this.huespedesController.modificar(id, nombre, apellido, fechaNacimiento, nacionalidad, telefono, idReserva);
@@ -488,6 +508,7 @@ public class Busqueda extends JFrame {
 	            } else {
 	                limpiarInput();
 	            }
+	        }
 	    }
 	
 	private void limpiarInput() {

@@ -17,17 +17,17 @@ public class Huesped {
 	}
 	
 	public Huesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono) {
-		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
 		this.telefono = telefono;
 	}	
+	
+	
 
 	public Huesped(int id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono,
 			int idReservas) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -36,8 +36,6 @@ public class Huesped {
 		this.telefono = telefono;
 		this.idReservas = idReservas;
 	}
-	
-	
 
 	public Huesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad, String telefono,
 			int idReservas) {
